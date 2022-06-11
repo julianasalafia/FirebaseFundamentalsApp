@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "320232779796",
+    "project_id": "fir-fundamentals-app",
+    "storage_bucket": "fir-fundamentals-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:320232779796:android:aa4cb1371902a4c6b03701",
+        "android_client_info": {
+          "package_name": "com.cursoandroid.firebasefundamentalsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "320232779796-o5jkjr6o4nb8u8hpmkh15dmde3p8vafm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cursoandroid.firebasefundamentalsapp",
+            "certificate_hash": "4fe5073d5e133ee16f5fb9177961317264da7243"
+          }
+        },
+        {
+          "client_id": "320232779796-b8d961h51359grroneto6e2haam8up7d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKj7Ccw7l-PcqsutroGZISxjGKq5r4AMg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "320232779796-b8d961h51359grroneto6e2haam8up7d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
