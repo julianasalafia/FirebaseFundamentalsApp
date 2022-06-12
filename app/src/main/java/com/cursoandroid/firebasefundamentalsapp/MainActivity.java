@@ -29,23 +29,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //createUser();
+        createUser();
         //createProduct();
         //recoveringData();
         //registerUserWithEmail();
-        signInUser();
+        //signInUser();
         //signOutUser();
-        isUserLoggedIn();
+        //isUserLoggedIn();
     }
 
     private void createUser() {
         User user = new User();
 
-        user.setName("Amanda");
-        user.setSurname("Soares");
-        user.setAge(40);
+        user.setName("Maria Eduarda");
+        user.setSurname("Silva");
+        user.setAge(25);
 
-        users.child("002").setValue(user);
+        users.push().setValue(user);
     }
 
     private void createProduct() {
