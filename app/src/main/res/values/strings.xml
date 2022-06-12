@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Firebase FundamentalsApp</string>
+    <string name="app_name">Firebase Fundamentals App</string>
+    <string name="textButton">upload</string>
 </resources>
