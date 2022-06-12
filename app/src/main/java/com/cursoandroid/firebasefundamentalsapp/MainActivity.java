@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -40,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView imagePicture;
     private Button buttonUpload;
+    private Button buttonDelete;
+    private Button buttonDownload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
 
         imagePicture = findViewById(R.id.imagePicture);
         buttonUpload = findViewById(R.id.buttonUpload);
+        buttonDelete = findViewById(R.id.buttonDelete);
+        buttonDownload = findViewById(R.id.buttonDownload);
 
         //createUser();
         //createProduct();
@@ -57,7 +63,9 @@ public class MainActivity extends AppCompatActivity {
         //signOutUser();
         //isUserLoggedIn();
         //filterUser();
-        imageUpload();
+        //imageUpload();
+        deletingImages();
+        downloadingImages();
     }
 
     private void createUser() {
@@ -182,8 +190,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Toast.makeText(MainActivity.this,
-                        "Upload failed: " + e.getMessage().toString(),
-                        Toast.LENGTH_LONG).show();
+                                "Upload failed: " + e.getMessage().toString(),
+                                Toast.LENGTH_LONG).show();
                     }
                 }).addOnSuccessListener(MainActivity.this, new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
@@ -195,6 +203,49 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.LENGTH_LONG).show();
                     }
                 });
+            }
+        });
+    }
+
+    private void deletingImages() {
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+                StorageReference images = storageReference.child("images");
+                StorageReference imageRef = images.child("106f5626-efb4-4729-9c0b-454be958eb3b.jpeg");
+
+                imageRef.delete().addOnFailureListener(MainActivity.this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(MainActivity.this,
+                                "Unable to delete",
+                                Toast.LENGTH_LONG).show();
+                    }
+                }).addOnSuccessListener(MainActivity.this, new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(MainActivity.this,
+                                "Image deleted",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+    }
+
+    private void downloadingImages() {
+        buttonDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+                StorageReference images = storageReference.child("images");
+                StorageReference imageRef = images.child("106f5626-efb4-4729-9c0b-454be958eb3b.jpeg");
+
+                Glide.with(MainActivity.this)
+                        .using(new FirebaseImageLoader())
+                        .load(imageRef)
+                        .into(imagePicture);
             }
         });
     }
