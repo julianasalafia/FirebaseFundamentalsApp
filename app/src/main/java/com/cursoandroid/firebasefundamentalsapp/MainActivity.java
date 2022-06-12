@@ -1,13 +1,27 @@
 package com.cursoandroid.firebasefundamentalsapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
+
+    private DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference users = reference.child("users");
+    private DatabaseReference products = reference.child("products");
+    private FirebaseAuth user = FirebaseAuth.getInstance();
 
 
     @Override
@@ -16,30 +30,56 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //createUser();
-        createProduct();
+        //createProduct();
+        //recoveringData();
+        registerUserWithEmail();
     }
 
     private void createUser() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference users = reference.child("users");
-
         User user = new User();
-        user.setName("Denis");
-        user.setSurname("Sato");
-        user.setAge(22);
+
+        user.setName("Amanda");
+        user.setSurname("Soares");
+        user.setAge(40);
 
         users.child("002").setValue(user);
     }
 
     private void createProduct() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference products = reference.child("products");
-
         Product product = new Product();
+
         product.setDescription("Acer Aspire");
         product.setBrand("Acer");
-        product.setPrice(999.99);
+        product.setPrice(998.99);
 
         products.child("002").setValue(product);
+    }
+
+    private void recoveringData() {
+        users.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i("FIREBASE_DATA", dataSnapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void registerUserWithEmail() {
+        user.createUserWithEmailAndPassword("andresantos@gmail.com", "as12345")
+                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.i("REGISTER_USER", "User registered successfully");
+                        } else {
+                            Log.i("REGISTER_USER", "Unable to register user");
+                        }
+                    }
+                });
     }
 }
