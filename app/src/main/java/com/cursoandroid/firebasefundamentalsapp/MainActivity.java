@@ -32,7 +32,8 @@ public class MainActivity extends AppCompatActivity {
         //createUser();
         //createProduct();
         //recoveringData();
-        registerUserWithEmail();
+        //registerUserWithEmail();
+        isUserLoggedIn();
     }
 
     private void createUser() {
@@ -81,5 +82,13 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void isUserLoggedIn() {
+        if (user.getCurrentUser() != null) {
+            Log.i("LOGGED_IN", "User is logged-in");
+        } else {
+            Log.i("LOGGED_OUT", "User is logged-out");
+        }
     }
 }
