@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "320232779796",
+    "firebase_url": "https://fir-fundamentals-app-default-rtdb.firebaseio.com/",
     "project_id": "fir-fundamentals-app",
     "storage_bucket": "fir-fundamentals-app.appspot.com"
   },
