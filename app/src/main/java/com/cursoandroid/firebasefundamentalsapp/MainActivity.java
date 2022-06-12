@@ -1,10 +1,10 @@
 package com.cursoandroid.firebasefundamentalsapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         //createProduct();
         //recoveringData();
         //registerUserWithEmail();
+        signInUser();
+        //signOutUser();
         isUserLoggedIn();
     }
 
@@ -90,5 +92,23 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.i("LOGGED_OUT", "User is logged-out");
         }
+    }
+
+    private void signOutUser() {
+        user.signOut();
+    }
+
+    private void signInUser() {
+        user.signInWithEmailAndPassword("andresantos@gmail.com", "as12345")
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.i("SIGN_IN", "User signed in successfully");
+                        } else {
+                            Log.i("SIGN_IN_ERROR", "Error: Unable to sign in user");
+                        }
+                    }
+                });
     }
 }
